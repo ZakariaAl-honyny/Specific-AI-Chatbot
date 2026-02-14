@@ -1,0 +1,111 @@
+:root {
+    --accent: #00f3ff;
+    --bg: #050505;
+    --surface: rgba(20, 20, 25, 0.6);
+    --border: rgba(255, 255, 255, 0.08);
+    --text: #e0e0e0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans Arabic', sans-serif;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* الإضاءة المحيطية */
+.ambient-glow {
+    position: fixed; width: 60vw; height: 60vh;
+    background: radial-gradient(circle, rgba(0, 243, 255, 0.05) 0%, transparent 70%);
+    top: -10%; left: -10%; z-index: -1;
+}
+
+.master-container { display: flex; height: 100vh; width: 100vw; }
+
+/* النافيجيشن الذكي */
+.smart-sidebar {
+    width: 60px; background: rgba(0,0,0,0.4);
+    border-left: 1px solid var(--border);
+    display: flex; flex-direction: column; align-items: center; padding: 20px 0;
+    transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.smart-sidebar:hover { width: 70px; background: rgba(0,0,0,0.8); }
+
+.n-item {
+    width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;
+    border-radius: 12px; margin-bottom: 20px; color: #555; cursor: pointer; transition: 0.2s;
+}
+.n-item.active, .n-item:hover { color: var(--accent); background: rgba(0, 243, 255, 0.1); }
+
+/* منطقة العمل */
+.viewport { flex: 1; display: flex; background: var(--surface); backdrop-filter: blur(20px); }
+
+/* اللوحة الجانبية النحيفة */
+.sub-sidebar {
+    width: 240px; border-left: 1px solid var(--border); padding: 25px 15px;
+    background: rgba(0,0,0,0.2);
+}
+.panel-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 30px; font-weight: 700; font-size: 0.85rem; }
+
+.h-card {
+    padding: 12px 15px; border-radius: 10px; font-size: 0.8rem;
+    margin-bottom: 8px; cursor: pointer; transition: 0.2s;
+    border: 1px solid transparent; color: #888;
+}
+.h-card.active { background: rgba(255,255,255,0.03); border-color: var(--border); color: white; }
+
+/* الشات هوب */
+.chat-hub { flex: 1; display: flex; flex-direction: column; position: relative; }
+
+.hub-header { padding: 20px 40px; border-bottom: 1px solid var(--border); }
+.ai-status { display: flex; align-items: center; gap: 15px; }
+.avatar-container { position: relative; width: 38px; height: 38px; }
+.avatar-container img { width: 100%; border-radius: 50%; border: 1px solid var(--accent); }
+.pulse-dot {
+    position: absolute; bottom: 0; right: 0; width: 10px; height: 10px;
+    background: #00ff88; border-radius: 50%; border: 2px solid var(--bg);
+}
+
+.status-info h2 { font-size: 1rem; letter-spacing: 1px; }
+.nano-text { font-size: 0.7rem; color: #666; }
+
+.messages-flow { flex: 1; padding: 40px; overflow-y: auto; display: flex; flex-direction: column; gap: 20px; }
+
+.msg-bubble {
+    max-width: 65%; padding: 14px 20px; border-radius: 18px; font-size: 0.9rem;
+    line-height: 1.6; animation: fadeIn 0.4s ease;
+}
+@keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } }
+
+.bot { background: rgba(255,255,255,0.03); border: 1px solid var(--border); align-self: flex-start; border-bottom-right-radius: 4px; }
+.user { background: var(--accent); color: black; align-self: flex-end; border-bottom-left-radius: 4px; font-weight: 500; }
+
+/* التايبينج الصغير */
+.nano-typing { display: none; padding: 0 40px 10px; gap: 4px; }
+.nano-typing span { width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: blink 1.4s infinite; }
+@keyframes blink { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; transform: translateY(-3px); } }
+
+/* منطقة الإدخال الأنيقة */
+.input-zone { padding: 30px 60px; }
+.input-container {
+    background: rgba(255,255,255,0.03); border: 1px solid var(--border);
+    border-radius: 16px; padding: 6px 12px; display: flex; align-items: center;
+    transition: 0.3s;
+}
+.input-container:focus-within { border-color: var(--accent); box-shadow: 0 0 20px rgba(0, 243, 255, 0.1); }
+
+input { flex: 1; background: transparent; border: none; color: white; padding: 10px; outline: none; font-size: 0.9rem; }
+.tool-btn { background: transparent; border: none; color: #555; cursor: pointer; padding: 10px; font-size: 1.1rem; }
+.send-btn-minimal {
+    width: 35px; height: 35px; border-radius: 10px; border: none;
+    background: var(--text); color: black; cursor: pointer; transition: 0.2s;
+}
+.send-btn-minimal:hover { background: var(--accent); transform: scale(1.05); }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .sub-sidebar { display: none; }
+    .input-zone { padding: 20px; }
+}
